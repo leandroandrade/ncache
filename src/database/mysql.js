@@ -3,7 +3,7 @@
 const mysql = require('promise-mysql');
 
 const getConnection = () => mysql.createConnection({
-    user: 'roots',
+    user: 'root',
     password: 'password',
     database: 'dbcarros',
     returnArgumentsArray: true
