@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/leandroandrade/ncache#readme",
   "dependencies": {
+    "bluebird": "^3.7.2",
     "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
     "ioredis": "^4.14.1",
     "promise-mysql": "^4.1.1"
   },

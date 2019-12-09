@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+require('express-async-errors');
 
 const app = express();
 
@@ -10,7 +11,7 @@ app.use(express.json());
 app.use('/ncache/', require('./routes'));
 
 app.use((err, req, res, next) => {
-    console.error('ERROR:', err);
+    console.error('SERVER ERROR:', err);
 
     next(err);
 });

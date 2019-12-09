@@ -1,9 +1,17 @@
 'use strict';
 
-const getCarroPelaPlaca = async (req, res) => {
+const carros = require('../repository/carros');
+
+const getCarroPelaPlaca = async (req, res, next) => {
     const { placa } = req.params;
 
-    return res.json({ mensagem: `Placa: ${ placa.toUpperCase() }` });
+    const carro = await carros.getPelaPlaca(placa);
+
+    if (!carro) return res
+        .status(404)
+        .send({ message: `Carro com placa ${ placa } nao encontrado!` });
+
+    return res.json(carro);
 };
 
 module.exports = {
