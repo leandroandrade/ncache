@@ -3,6 +3,8 @@
 const express = require('express');
 require('express-async-errors');
 
+require('dotenv').config();
+
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));

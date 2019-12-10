@@ -3,7 +3,6 @@
 const carros = require('../repository/carros');
 const { getCache, setCache } = require('../database/redis');
 
-const expireSeconds = 30;
 const key = placa => `carros:${ placa }`;
 
 const getCarroPelaPlaca = async (req, res, next) => {
@@ -19,7 +18,7 @@ const getCarroPelaPlaca = async (req, res, next) => {
         .status(404)
         .send({ message: `Carro com placa ${ placa } nao encontrado!` });
 
-    await setCache(keyPlaca, carro, expireSeconds);
+    await setCache(keyPlaca, carro, process.env.REDIS_EXPIRE_CACHE_SECONDS);
 
     return res.json(carro);
 };
