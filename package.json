@@ -4,7 +4,8 @@
   "description": "Distributed cache using Redis",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --inspect ./bin/www"
+    "dev": "nodemon --inspect ./bin/www",
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
