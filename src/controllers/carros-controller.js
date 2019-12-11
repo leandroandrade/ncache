@@ -1,4 +1,5 @@
 'use strict';
+const createError = require('http-errors');
 
 const carros = require('../repository/carros');
 const { getCache, setCache } = require('../database/redis');
@@ -14,9 +15,7 @@ const getCarroPelaPlaca = async (req, res, next) => {
     if (cached) return res.json(cached);
 
     const carro = await carros.getPelaPlaca(placa);
-    if (!carro) return res
-        .status(404)
-        .send({ message: `Carro com placa ${ placa } nao encontrado!` });
+    if (!carro) return next(createError(404, `Carro com placa ${ placa } nao encontrado!`));
 
     await setCache(keyPlaca, carro, process.env.REDIS_EXPIRE_CACHE_SECONDS);
 

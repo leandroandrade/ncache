@@ -19,9 +19,9 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    const { status } = err;
+    const { status, message } = err;
 
-    return res.status(status || 500).send({ error: 'Ocorreu um erro no servidor.' });
+    return res.status(status || 500).send({ error: status ? message : 'Ocorreu um erro no servidor.' });
 });
 
 module.exports = app;
