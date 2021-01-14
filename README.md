@@ -1,49 +1,59 @@
 # ncache
 
-Esta é uma API Rest desenvolvida em Nodejs com a proposta de demonstrar a utilização de cache com Redis.
+This is a Rest API with propose to show how to use MySQL and cache with Redis.
 
-## Sobre o projeto
+## About project
 
-A ideia é demonstrar como permitir o acesso ao cache mais resiliente. A variável de ambiente **REDIS_REQUEST_TIMEOUT_MILLISECONDS** 
-indica o tempo que a requisição aguardará a resposta o cache (Redis), utilizando a biblioteca **bluebird**. 
+The idea is to demonstrate how to allow access to the most resilient cache. The environment variable **REDIS_REQUEST_TIMEOUT_MILLISECONDS**
+indicates the time the request will wait for the cache to respond (Redis), using the **bluebird** library.
 
-Caso o serviço do Redis esteja indisponível, o acesso ao cache será interrompido e a pesquisa do dado será feita diretamente no banco de dados.
-  
+If the Redis service is unavailable, access to the cache will be interrupted and the data will be searched directly into
+the database.
+
 ## Getting Started
 
-### Pré-requisitos
+### Running docker (only infrastructure) services:
+
+```
+docker-compose up -d
+```
+
+### Checkout
 
 1. [nodejs.org](https://nodejs.org)
 2. [npmjs.com](https://www.npmjs.com) (includes node)
 3. git clone https://github.com/leandroandrade/ncache
 3. cd ./ncache/
-4. npm install
-5. npm run dev
+4. npm install or npm run dev
 
-### Executando docker:
+### Services:
 
-**Serviço Redis**
+Insert new language:
 ```
-docker run --name redis --memory=50m -p 6379:6379 -d redis:5
-```
+Method: POST
+URL: http://localhost:3000/ncache/languages
+Payload: {"language": "some_language", "description": "some_description"}
 
-**Serviço MySQL**
-```
-docker run --name mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=dbcarros -p 3306:3306 -d mysql:5.7
+curl -X POST -H "Content-Type: application/json" -d '{"language": "some_language", "description": "some_description"}' http://localhost:3000/ncache/languages
 ```
 
-**Cliente Redis Web**
+Get all languages:
 ```
-docker run --rm --name redis-commander -d --env REDIS_HOSTS=10.238.34.83 -p 8081:8081 rediscommander/redis-commander:latest
+Method: GET
+URL: http://localhost:3000/ncache/languages
+
+curl http://localhost:3000/ncache/languages
 ```
 
-**Acessando o MySQL e criando a tabela**
+Get specific language:
 ```
-docker exec -ti mysql bash
-create table carros(id int not null auto_increment primary key, placa varchar(20), situacao varchar(45));
+Method: GET
+URL: http://localhost:3000/ncache/languages/:language
+
+curl http://localhost:3000/ncache/languages/somelanguage
 ```
 
 Email: leandro.andrade2588@gmail.com
 
-Conecte-se comigo em [LinkedIn](http://www.linkedin.com/in/leandro-andrade)
+Connect with me on [LinkedIn](http://www.linkedin.com/in/leandro-andrade)
 

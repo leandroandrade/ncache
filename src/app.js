@@ -1,9 +1,5 @@
-'use strict';
-
 const express = require('express');
 require('express-async-errors');
-
-require('dotenv').config();
 
 const app = express();
 
@@ -22,7 +18,7 @@ app.use((err, req, res, next) => {
 app.use((err, req, res, next) => {
     const { status, message } = err;
 
-    return res.status(status || 500).send({ error: status ? message : 'Ocorreu um erro no servidor.' });
+    return res.status(status || 500).send({ error: status ? message : 'Internal Server Error!' });
 });
 
 module.exports = app;
